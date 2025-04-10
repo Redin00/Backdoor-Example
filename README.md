@@ -17,4 +17,4 @@ gcc nameFile.c -o nameFile -lws2_32 -mwindows
 
 <br><br>Good luck!
 <br><br>
-___Educational purposes only.___
+Use this only for good purposes, and not to harm people/things.
